@@ -1,3 +1,4 @@
+//import { ProductService } from './shared/Services/product.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +19,9 @@ import { StarComponent } from './shared/star/star.component';
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    //ProductService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
