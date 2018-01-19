@@ -2,6 +2,11 @@ import { IProduct } from './../shared/Interfaces/IProduct';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../shared/Services/product.service';
 
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import { HttpErrorResponse } from '@angular/common/http';
+
 @Component({
   selector: 'pm-products',
   templateUrl: './product-list.component.html',
@@ -11,6 +16,7 @@ export class ProductListComponent implements OnInit {
 
     pageTitle: string = 'Product List';
     showImage: boolean = false;
+    errorMessage: string;
 
     // listFilter: string = 'cart';
 
@@ -32,8 +38,12 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this .products = this.productservice.getProducts();
-    this.filteredProducts = this.products;
+    this.productservice.getProducts()
+      .subscribe(products => {
+            this.products = products;
+            this.filteredProducts = this.products;
+          },
+          error =>  this.errorMessage = <any>error);
   }
 
   toggleImage(): void {
