@@ -1,11 +1,12 @@
-import { IProduct } from './../shared/Interfaces/IProduct';
+
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../shared/Services/product.service';
 
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ProductService } from '../product.service';
+import { IProduct } from '../../../shared/Interfaces/IProduct';
 
 @Component({
   selector: 'pm-products',

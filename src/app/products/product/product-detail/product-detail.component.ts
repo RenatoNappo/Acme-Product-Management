@@ -1,8 +1,10 @@
-import { IProduct } from './../shared/Interfaces/IProduct';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ProductService } from '../shared/Services/product.service';
+import { ProductService } from '../product.service';
+import { IProduct } from '../../../shared/Interfaces/IProduct';
+
 
 
 @Component({
