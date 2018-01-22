@@ -1,0 +1,10 @@
+
+#avatar{
+  width: 80px;
+  height: 80px;
+}
+
+#avatardiv{
+  float: left;
+  padding: 10px;
+}

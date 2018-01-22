@@ -3,6 +3,22 @@
   <div class="panel-heading">
       {{ pageTitle + ': ' + product.productName }}
   </div>
+<div class="panel-body">
+  <div class="media">
+    <div id="avatardiv">
+    <img id="avatar" class="d-flex mr-3" src="{{ product.imageUrl }}" alt="{{ product.productName }}">
+    </div>
+    <div class="media-body">
+      <h4 class="mt-0">{{ product.description }}</h4>
+      <h4 class="mt-0">{{ product.productCode | uppercase | convertToSpaces: '-' }}</h4>
+      <h4 class="mt-0">{{ product.price | currency:'GBP' :true }}</h4>
+      <h4 class="mt-0">{{ product.releaseDate }}</h4>
+      <pm-star
+        [rating]='product.starRating'>
+    </pm-star>
+    </div>
+  </div>
+</div>
   <div class="panel-footer">
       <a class="btn btn-default"
         (click)="onBack()">
