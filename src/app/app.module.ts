@@ -1,3 +1,4 @@
+import { AppRoutingModule } from './routing/app-routing.module';
 
 import { WelcomeComponent } from './home/welcome.component';
 
@@ -18,16 +19,11 @@ import { ProductModule } from './products/product/product.module';
     PageNotFoundComponent
   ],
   imports: [
+    RouterModule,
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(
-      [
-        {path: 'welcome', component: WelcomeComponent},
-        {path: '', redirectTo: 'welcome', pathMatch: 'full'},
-        {path: '**', component: PageNotFoundComponent}
-      ]
-    ),
-    ProductModule
+    ProductModule,
+    AppRoutingModule
   ],
   bootstrap: [AppComponent]
 })
