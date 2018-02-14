@@ -15,6 +15,9 @@ import { CommonModule } from '@angular/common';
       ]
     ),
   ],
-  declarations: []
+  declarations: [],
+  exports: [
+    RouterModule
+  ]
 })
 export class AppRoutingModule { }

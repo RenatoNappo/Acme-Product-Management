@@ -13,6 +13,9 @@ import { CommonModule } from '@angular/common';
       {path: 'products/:id', canActivate: [ProductGuardService] , component: ProductDetailComponent}
     ]),
   ],
-  declarations: []
+  declarations: [],
+  exports: [
+    RouterModule
+  ]
 })
 export class ProductRoutingModule { }
