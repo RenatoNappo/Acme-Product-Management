@@ -13,6 +13,7 @@
       <h4 class="mt-0">{{ product.productCode | uppercase | convertToSpaces: '-' }}</h4>
       <h4 class="mt-0">{{ product.price | currency:'GBP' :true }}</h4>
       <h4 class="mt-0">{{ product.releaseDate }}</h4>
+      <a href="#testDialog" class="btn btn-info" data-toggle="modal">Show Dialog</a>
       <pm-star
         [rating]='product.starRating'>
     </pm-star>
@@ -26,5 +27,22 @@
         Back
       </a>
     </div>
+</div>
+
+<div class="modal fade" id="#testDialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a href="#testDialog" class="close" data-dismiss="modal">&times;</a>
+        Dialog Title
+      </div>
+      <div class="modal-body">
+        This is a test dialog.
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 

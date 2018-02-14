@@ -1,12 +1,21 @@
-
 <div>
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-      <a class="navbar-brand">{{ pageTitle }}</a>
-        <ul class="nav navbar-nav">
-          <li><a [routerLink]="['/welcome']" >Home</a></li>
-          <li><a [routerLink]="['/products']" >Product List</a></li>
+      <div class="navbar-header">
+        <button class="btn btn-success navbar-toggle"
+          data-toggle="collapse"
+          data-target="#collapseOptions">
+          <span class="glyphicon glyphicon-chevron-down"></span>
+        </button>
+        <a class="navbar-brand">{{ pageTitle }}</a>
+      </div>
+      <div id="collapseOptions" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="nav"><a [routerLink]="['/welcome']" >Home</a></li>
+          <li class="nav"><a [routerLink]="['/products']" >Product List</a></li>
+          <li class="nav"><a [routerLink]="['/customersignup']" >New Customer</a></li>
         </ul>
+      </div>
     </div>
   </nav>
   <div class="container">

@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProductModule } from './products/product/product.module';
-
+import { CustomerModule } from './customers/customer.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +23,7 @@ import { ProductModule } from './products/product/product.module';
     BrowserModule,
     HttpClientModule,
     ProductModule,
+    CustomerModule,
     AppRoutingModule
   ],
   bootstrap: [AppComponent]
