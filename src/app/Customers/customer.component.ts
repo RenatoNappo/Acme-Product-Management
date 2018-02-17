@@ -1,6 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Customer } from './customer';
+import { AbstractControl } from '@angular/forms';
+
+
+function ratingRange(c: AbstractControl ): {[key: string]: boolean } | null {
+  if ( c.value != undefined && ( isNaN(c.value) || c.value < 1 || c.value > 5 ))
+  {
+    return {'range': true};
+  }
+  return null;
+}
 
 
 @Component({
@@ -18,9 +28,12 @@ export class CustomerComponent implements OnInit {
 
   ngOnInit(): void {
     this.customerForm = this.fb.group({
-      firstName: '',
-      lastName: '',
-      email: '',
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.maxLength(50)]],
+      email: ['', Validators.required],
+      phone: '',
+      notification: 'email',
+      rating: ['', ratingRange],
       sendCatalog: true
     });
   }
@@ -37,8 +50,26 @@ export class CustomerComponent implements OnInit {
     return this.customerForm.get('email');
   }
 
+  get phone(){
+    return this.customerForm.get('phone');
+  }
+
+  get rating(){
+    return this.customerForm.get('rating');
+  }
+
   get sendCatalog(){
     return this.customerForm.get('sendCatalog');
+  }
+
+
+  setNotfication(notifyVia: string): void {
+    if (notifyVia === 'phone' ) {
+      this.phone.setValidators(Validators.required);
+    } else {
+      this.phone.clearAsyncValidators();
+    }
+    this.phone.markAsUntouched();
   }
 
   save() {

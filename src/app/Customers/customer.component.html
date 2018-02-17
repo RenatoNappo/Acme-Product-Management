@@ -19,8 +19,6 @@
                              id="firstNameId"
                              type="text"
                              placeholder="First Name (required)"
-                             required
-                             minlength="3"
                              formControlName="firstName" />
                       <span class="help-block" *ngIf="(firstName.touched || firstName.dirty) && firstName.errors">
                           <span *ngIf="firstName.errors.required">
@@ -43,8 +41,6 @@
                              id="lastNameId"
                              type="text"
                              placeholder="Last Name (required)"
-                             required
-                             maxlength="50"
                              formControlName="lastName"/>
                       <span class="help-block" *ngIf="(lastName.touched || lastName.dirty) && lastName.errors">
                           <span *ngIf="lastName.errors.required">
@@ -64,13 +60,12 @@
                              id="emailId"
                              type="email"
                              placeholder="Email (required)"
-                             required
                              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+"
                              formControlName="email"/>
                       <span class="help-block" *ngIf="(email.touched || email.dirty) && email.errors">
-                          <!--span *ngIf="email.errors.required">
+                          <span *ngIf="email.errors.required">
                               Please enter your email address.
-                          </span-->
+                          </span>
                           <!--span *ngIf="email.errors.pattern">
                               Please enter a valid email address.
                           </span>
@@ -79,6 +74,64 @@
                           <!--span *ngIf="email.errors.email">
                               Please enter a valid email address.
                           </span-->
+                      </span>
+                  </div>
+              </div>
+
+              <div class="form-group"
+                  [ngClass]="{'has-error': (phone.touched || phone.dirty) && !phone.valid }">
+                  <label class="col-md-2 control-label"
+                      for="phoneId">Phone</label>
+
+                  <div class="col-md-8">
+                      <input class="form-control"
+                             id="phoneId"
+                             type="tel"
+                             placeholder="Phone"
+                             formControlName="phone"/>
+                      <span class="help-block" *ngIf="(phone.touched || phone.dirty) && phone.errors">
+                          <span *ngIf="phone.errors.required">
+                              Please enter your telphone number.
+                          </span>
+                      </span>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-2 control-label">Send Notifications</label>
+                <div class="col-md-8">
+                  <label class="radio-inline">
+                  <input type="radio"
+                         id="emailId"
+                         formControlName="notification"
+                         (click)="setNotification('email')"
+                  />Email
+                  </label>
+                  <label class="radio-inline">
+                  <input type="radio"
+                         id="textId"
+                         formControlName="notification"
+                         (click)="setNotification('text')"
+                  />Text
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group"
+                  [ngClass]="{'has-error': (rating.touched || rating.dirty) && !rating.valid }">
+                  <label class="col-md-2 control-label"
+                      for="ratingId">Rating</label>
+
+                  <div class="col-md-8">
+                      <input class="form-control"
+                             id="ratingId"
+                             type="tel"
+                             placeholder="Rating"
+                             formControlName="rating"/>
+                      <span class="help-block" *ngIf="(rating.touched || rating.dirty) && rating.errors">
+                          <span *ngIf="rating.errors.range">
+                              Please rate your experience from 1 to 5.
+                          </span>
                       </span>
                   </div>
               </div>
