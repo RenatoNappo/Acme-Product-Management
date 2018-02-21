@@ -50,56 +50,25 @@
                   </div>
               </div>
 
-              <div formGroupName="emailGroup"
-                [ngClass]="{'has-error': customerForm.get('emailGroup').errors}">
-                <div class="form-group"
-                    [ngClass]="{'has-error': (email.touched || email.dirty) && !email.valid }">
-                    <label class="col-md-2 control-label"
-                        for="emailId">Email</label>
-  
-                    <div class="col-md-8">
-                        <input class="form-control"
-                               id="emailId"
-                               type="email"
-                               placeholder="Email (required)"
-                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+"
-                               formControlName="email"/>
-                        <span class="help-block" *ngIf="(email.touched || email.dirty) && email.errors">
-                            <span *ngIf="email.errors.required">
-                                Please enter your email address.
-                            </span>
-                            <span *ngIf="email.errors.pattern">
-                                Please enter a valid email address.
-                            </span>
-                        </span>
-                    </div>
-                </div>
-  
-                <div class="form-group"
-                    [ngClass]="{'has-error': (confirmEmail.touched || confirmEmail.dirty) && !confirmEmail.valid }">
-                    <label class="col-md-2 control-label"
-                        for="emailId">Confirm Email</label>
-  
-                    <div class="col-md-8">
-                        <input class="form-control"
-                               id="emailId"
-                               type="email"
-                               placeholder="Confirm Email (required)"
-                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+"
-                               formControlName="confirmEmail"/>
-                        <span class="help-block" *ngIf="(confirmEmail.touched || confirmEmail.dirty) && (confirmEmail.errors || customerForm.get('emailGroup').errors)">
-                            <span *ngIf="confirmEmail.errors?.required">
-                                Please enter your email address.
-                            </span>
-                            <span *ngIf="customerForm.get('emailGroup').errors?.emailMatch">
-                                Please make sure the email addresses match.
-                            </span>
-                        </span>
-                    </div>
-                </div>                  
+              <div class="form-group"
+                  [ngClass]="{'has-error': emailMessage }">
+                  <label class="col-md-2 control-label"
+                      for="emailId">Email</label>
+
+                  <div class="col-md-8">
+                      <input class="form-control"
+                             id="emailId"
+                             type="email"
+                             placeholder="Email (required)"
+                             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+"
+                             formControlName="email"/>
+                      <span class="help-block" *ngIf="emailMessage">
+                        {{ emailMessage }}
+                      </span>
+                  </div>
               </div>
-              
-               <div class="form-group"
+
+              <div class="form-group"
                   [ngClass]="{'has-error': (phone.touched || phone.dirty) && !phone.valid }">
                   <label class="col-md-2 control-label"
                       for="phoneId">Phone</label>
@@ -124,16 +93,14 @@
                   <label class="radio-inline">
                   <input type="radio"
                          id="emailId"
-                         formControlName="notification"
-                         (click)="setNotification('email')"
-                  />Email
+                         value="email"
+                         formControlName="notification"/>Email
                   </label>
                   <label class="radio-inline">
                   <input type="radio"
                          id="textId"
-                         formControlName="notification"
-                         (click)="setNotification('text')"
-                  />Text
+                         value="text"
+                         formControlName="notification"/>Text
                   </label>
                 </div>
               </div>
@@ -184,64 +151,57 @@
                       </div>
                   </div>
 
-                  <div formGroupName="catalogAddress">
-                    <div class="form-group">
-                        <label class="col-md-2 control-label"
-                            for="street1Id">Street Address 1</label>
-                        <div class="col-md-8">
-                            <input type="text"
-                                    class="form-control"
-                                    id="street1Id"
-                                    placeholder="Street address"
-                                    formControlName="streetAddress1">
-                        </div>
-                    </div>
+                  <div class="form-group">
+                      <label class="col-md-2 control-label"
+                          for="street1Id">Street Address 1</label>
+                      <div class="col-md-8">
+                          <input type="text"
+                                 class="form-control"
+                                 id="street1Id"
+                                 placeholder="Street address">
+                      </div>
+                  </div>
 
-                    <div class="form-group">
-                        <label class="col-md-2 control-label"
-                            for="street2Id">Street Address 2</label>
-                        <div class="col-md-8">
-                            <input type="text"
-                                    class="form-control"
-                                    id="street2Id"
-                                    placeholder="Street address (second line)"
-                                    formControlName="streetAddress2">
-                        </div>
-                    </div>
+                  <div class="form-group">
+                      <label class="col-md-2 control-label"
+                          for="street2Id">Street Address 2</label>
+                      <div class="col-md-8">
+                          <input type="text"
+                                 class="form-control"
+                                 id="street2Id"
+                                 placeholder="Street address (second line)">
+                      </div>
+                  </div>
 
-                    <div class="form-group">
-                        <label class="col-md-2 control-label"
-                            for="cityId">City, State, Zip Code</label>
-                        <div class="col-md-3">
-                            <input type="text"
-                                    class="form-control"
-                                    id="cityId"
-                                    placeholder="City"
-                                    formControlName="city">
-                        </div>
-                        <div class="col-md-3">
-                            <select class="form-control"
-                                    id="stateId"
-                                    formControlName="state">
-                                <option value="" disabled selected hidden>Select a State...</option>
-                                <option value="AL">Alabama</option>
-                                <option value="AK">Alaska</option>
-                                <option value="AZ">Arizona</option>
-                                <option value="AR">Arkansas</option>
-                                <option value="CA">California</option>
-                                <option value="CO">Colorado</option>
-                                <option value="WI">Wisconsin</option>
-                                <option value="WY">Wyoming</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                        <input type="number"
-                                    class="form-control"
-                                    id="zipId"
-                                    placeholder="Zip Code"
-                                    formControlName="zipcode">
-                        </div>
-                     </div>
+                  <div class="form-group">
+                      <label class="col-md-2 control-label"
+                          for="cityId">City, State, Zip Code</label>
+                      <div class="col-md-3">
+                          <input type="text"
+                                 class="form-control"
+                                 id="cityId"
+                                 placeholder="City">
+                      </div>
+                      <div class="col-md-3">
+                          <select class="form-control"
+                                  id="stateId">
+                              <option value="" disabled selected hidden>Select a State...</option>
+                              <option value="AL">Alabama</option>
+                              <option value="AK">Alaska</option>
+                              <option value="AZ">Arizona</option>
+                              <option value="AR">Arkansas</option>
+                              <option value="CA">California</option>
+                              <option value="CO">Colorado</option>
+                              <option value="WI">Wisconsin</option>
+                              <option value="WY">Wyoming</option>
+                          </select>
+                      </div>
+                      <div class="col-md-2">
+                      <input type="number"
+                                 class="form-control"
+                                 id="zipId"
+                                 placeholder="Zip Code">
+                      </div>
                   </div>
               </div>
 
@@ -264,3 +224,5 @@
 <br>Touched: {{ customerForm.touched }}
 <br>Valid: {{ customerForm.valid }}
 <br>Value: {{ customerForm.value | json }}
+<br>Phone: {{ customerForm.phone.valid}}
+
