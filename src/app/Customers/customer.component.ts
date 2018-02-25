@@ -1,14 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn} from '@angular/forms';
 import { Customer } from './customer';
 import { AbstractControl } from '@angular/forms';
 
-function ratingRange(c: AbstractControl ): {[key: string]: boolean } | null {
-  if ( c.value !== undefined && ( isNaN(c.value) || c.value < 1 || c.value > 5 ))  {
-    return {'range': true};
+import 'rxjs/add/operator/debounceTime';
+
+function ratingRange(minValue: number, maxValue: number): ValidatorFn {
+  return (c: AbstractControl ): {[key: string]: boolean } | null => {
+    if ( c.value !== undefined && ( isNaN(c.value) || c.value < 1 || c.value > 5 ))  {
+      return {'range': true};
+    }
+    return null;
+  };
+}
+
+
+function emailComparison(c: AbstractControl): {[key: string]: boolean} | null {
+  const email = c.get('email');
+  const confirmEmail = c.get('confirmEmail');
+  if (email.pristine || confirmEmail.pristine){
+    return null;
+  }
+  if (email.value !== confirmEmail.value){
+    return { 'emailMatch': true };
   }
   return null;
 }
+
 
 @Component({
   selector: 'pm-customer-signup',
@@ -34,16 +52,19 @@ export class CustomerComponent implements OnInit {
     this.customerForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.maxLength(50)]],
-      email: ['', Validators.required],
+      emailGroup: this.fb.group({
+        email: ['', Validators.required],
+        confirmEmail: ['', Validators.required]
+      }, {validator: emailComparison}),
       phone: '',
       notification: 'email',
-      rating: ['', ratingRange],
+      rating: ['', ratingRange(1, 5)],
       sendCatalog: true
     });
 
     this.customerForm.get('notification').valueChanges.subscribe(value => this.setNotification(value));
 
-    this.email.valueChanges.subscribe(value => this.setEmailMessage(this.email));
+    this.email.valueChanges.debounceTime(1000).subscribe(value => this.setEmailMessage(this.email));
   }
 
   get firstName(){
@@ -55,7 +76,11 @@ export class CustomerComponent implements OnInit {
   }
 
   get email(){
-    return this.customerForm.get('email');
+    return this.customerForm.get('emailGroup.email');
+  }
+
+  get confirmEmail(){
+    return this.customerForm.get('emailGroup.confirmEmail');
   }
 
   get phone(){

@@ -50,22 +50,48 @@
                   </div>
               </div>
 
-              <div class="form-group"
-                  [ngClass]="{'has-error': emailMessage }">
-                  <label class="col-md-2 control-label"
-                      for="emailId">Email</label>
+              <div formGroupName="emailGroup"
+                [ngClass]="{'has-error': customerForm.get('emailGroup').errors}">
+                <div class="form-group"
+                    [ngClass]="{'has-error': emailMessage }">
+                    <label class="col-md-2 control-label"
+                        for="emailId">Email</label>
 
-                  <div class="col-md-8">
-                      <input class="form-control"
-                             id="emailId"
-                             type="email"
-                             placeholder="Email (required)"
-                             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+"
-                             formControlName="email"/>
-                      <span class="help-block" *ngIf="emailMessage">
-                        {{ emailMessage }}
-                      </span>
-                  </div>
+                    <div class="col-md-8">
+                        <input class="form-control"
+                              id="emailId"
+                              type="email"
+                              placeholder="Email (required)"
+                              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+"
+                              formControlName="email"/>
+                        <span class="help-block" *ngIf="emailMessage">
+                          {{ emailMessage }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group"
+                    [ngClass]="{'has-error': emailMessage }">
+                    <label class="col-md-2 control-label"
+                        for="emailId">Confirm Email</label>
+
+                    <div class="col-md-8">
+                        <input class="form-control"
+                              id="emailId"
+                              type="email"
+                              placeholder="Email (required)"
+                              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+"
+                              formControlName="confirmEmail"/>
+                        <span class="help-block" *ngIf="(confirmEmail.touched || confirmEmail.dirty) && (confirmEmail.errors || customerForm.get('emailGroup').errors)">
+                          <span *ngIf="confirmEmail.errors?.required">
+                            Please enter your email address.
+                          </span>
+                          <span *ngIf="customerForm.get('emailGroup').errors?.emailMatch">
+                              Please ensure the email addresses match.
+                          </span>
+                        </span>
+                    </div>
+                </div>
               </div>
 
               <div class="form-group"
@@ -224,5 +250,5 @@
 <br>Touched: {{ customerForm.touched }}
 <br>Valid: {{ customerForm.valid }}
 <br>Value: {{ customerForm.value | json }}
-<br>Phone: {{ customerForm.phone.valid}}
+<br *ngIf="!phone.valid">Phone: {{ phone.valid}}
 
